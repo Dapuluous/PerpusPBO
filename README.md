@@ -9,7 +9,7 @@ Basically, this is a simple application for library management stuff written usi
 - [XAMPP 7.3.5 or newer (For MySQL database)](https://www.apachefriends.org/download.html)
 
 # How to Run
-First, you need to create a file named `conn.py` and put your database credential info inside the `conn.py`
+First, you need to create a file named `conn.py` and put your database credential info inside `conn.py`
 ```py
 import mysql.connector
 
