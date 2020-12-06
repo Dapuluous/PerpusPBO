@@ -13,16 +13,21 @@ First, you need to create a file named `conn.py` and put your database credentia
 ```py
 import mysql.connector
 
-mydb = mysql.connector.connect (
-	host = "yourHostName",
-	user = "yourUserName",
-	password = "yourDbPassword",
-	database = "yourSelectedDatabase"
-)
-
-mycursor = mydb.cursor()
+try:
+	mydb = mysql.connector.connect (
+		host = "localhost",
+		user = "root",
+		password = "",
+		database = "pythonpbo"
+	)
+	
+	mycursor = mydb.cursor()
+except:
+	print("No database server detected. Please ensure you have your database server running!")
+	exit()
 ```
-The .sql code is yet to come. I will put it eventually.
+
+I don't provide the .sql database until the professor has marked our project as done to avoid 100% code plagiarism among the students. You may review my code and take it as your inspiration. Good luck!
 
 # Kelompok
 - Muhammad Dhaffa Mahendra (192410103005)
