@@ -23,3 +23,7 @@ mydb = mysql.connector.connect (
 mycursor = mydb.cursor()
 ```
 The .sql code is yet to come. I will put it eventually.
+
+# Kelompok
+- Muhammad Dhaffa Mahendra (192410103005)
+- Muhammad Zufar Syah (192410103074)
