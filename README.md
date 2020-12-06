@@ -15,10 +15,10 @@ import mysql.connector
 
 try:
 	mydb = mysql.connector.connect (
-		host = "localhost",
-		user = "root",
-		password = "",
-		database = "pythonpbo"
+		host = "yourHostname",
+		user = "yourDBUsername",
+		password = "yourDBPassword",
+		database = "yourDatabaseName"
 	)
 	
 	mycursor = mydb.cursor()
