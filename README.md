@@ -1,5 +1,5 @@
 # PerpusPBO
-This application is made to fulfill a pass-requirement on "Pemrograman Berbasis Obyek" subject.
+This application was made to fulfill a pass-requirement on "Pemrograman Berbasis Obyek" subject.
 Basically, this is a simple application for library management stuff written using Python. As for now, the application is still work in progress which means you will encounter some unexpected bugs so be sure to stay tuned!
 
 # Requirements
