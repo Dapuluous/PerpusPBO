@@ -9,7 +9,9 @@ Basically, this is a simple application for library management stuff written usi
 - [XAMPP 7.3.5 or newer (For MySQL database)](https://www.apachefriends.org/download.html)
 
 # How to Run
-First, you need to create a file named `conn.py` and put your database credential info inside `conn.py`
+- Make sure all requirements above were installed in your device.
+- Open XAMPP then start `Apache` & `MySQL`
+- Open `conn.py` and edit the code according to your database credential.
 ```py
 import mysql.connector
 
@@ -26,8 +28,7 @@ except:
 	print("No database server detected. Please ensure you have your database server running!")
 	exit()
 ```
-
-I don't provide the .sql database until the professor has marked our project as done to avoid 100% code plagiarism among the students. You may review my code and take it as your inspiration. Good luck!
+- Create a database with `pythonpbo` as the name and import the tables using the provided .sql `(pythonpbo.sql)`
 
 # Kelompok
 - Muhammad Dhaffa Mahendra (192410103005)
