@@ -137,7 +137,7 @@ class Karyawan:
 			print(f"===== Data ke {x+1} =====")
 			namaKaryawan = input("Masukkan nama karyawan: ")
 			jenisKelamin = input("Masukkan jenis kelamin (L/P): ").lower()
-			umur = input("Masukkan umur: ")
+			umur = int(input("Masukkan umur: "))
 			alamat = input("Masukkan alamat: ")
 			tanggalBergabung = input("Masukkan tanggal bergabung (YYYY-MM-DD): ")
 
@@ -178,13 +178,13 @@ class Karyawan:
 		dataExist = self.fetchKaryawan()
 
 		if(dataExist):
-			idKaryawan = int(input("Masukkan id buku yang ingin diubah: "))
+			idKaryawan = int(input("Masukkan id karyawan yang ingin diubah: "))
 			result = self.fetchKaryawanSingle(idKaryawan)
 
 			if(result):
 				namaKaryawan = input("Masukkan nama karyawan yang baru: ")
 				jenisKelamin = input("Masukkan jenis kelamin yang baru (L/P): ").lower()
-				umur = input("Masukkan umur yang baru yang baru: ")
+				umur = int(input("Masukkan umur yang baru: "))
 				alamat = input("Masukkan alamat yang baru: ")
 				tanggalBergabung = input("Masukkan tanggal bergabung yang baru (YYYY-MM-DD): ")
 
@@ -242,7 +242,7 @@ class Anggota:
 			print(f"===== Data ke {x+1} =====")
 			namaAnggota = input("Masukkan nama anggota: ")
 			jenisKelamin = input("Masukkan jenis kelamin (L/P): ").lower()
-			umur = input("Masukkan umur: ")
+			umur = int(input("Masukkan umur: "))
 			alamat = input("Masukkan alamat: ")
 			tanggalDaftar = datetime.today().strftime('%Y-%m-%d')
 			statusAnggota = "1"
@@ -278,7 +278,7 @@ class Anggota:
 				table.add_row([idAnggota, namaAnggota, jenisKelamin, umur, alamat, tanggalDaftar, statusAnggota])
 
 			print(table)
-
+			
 		return result
 	def fetchAnggotaSingle(self, idAnggota):
 		whereData = (idAnggota,)
@@ -296,7 +296,7 @@ class Anggota:
 			if(result):
 				namaAnggota = input("Masukkan nama anggota yang baru: ")
 				jenisKelamin = input("Masukkan jenis kelamin yang baru (L/P): ").lower()
-				umur = input("Masukkan umur yang baru: ")
+				umur = int(input("Masukkan umur yang baru: "))
 				alamat = input("Masukkan alamat yang baru: ")
 				statusAnggota = str(input("Masukkan status anggota yang baru (1 (Aktif)/0 (Tidak Aktif): "))
 
@@ -355,12 +355,12 @@ class Transaksi:
 		idAnggota = int(input("Masukkan ID anggota yang ingin meminjam: "))
 		Karyawan().fetchKaryawan()
 		idKaryawan = int(input("Masukkan ID karyawan yang menangani transaksi: "))
-		tanggalPinjam = datetime.today().strftime('%Y-%m-%d')
+		tanggalPinjam = datetime.datetime.today().strftime('%Y-%m-%d')
 
-		initialDate = datetime.strptime(str(tanggalPinjam), '%Y-%m-%d')
+		initialDate = datetime.datetime.strptime(str(tanggalPinjam), '%Y-%m-%d')
 		modifiedDate = initialDate + timedelta(days=3)
 
-		tanggalKembali = datetime.strftime(modifiedDate, '%Y-%m-%d')
+		tanggalKembali = datetime.datetime.strftime(modifiedDate, '%Y-%m-%d')
 		statusKembali = "0"
 
 		dataList.append((idBuku, idAnggota, idKaryawan, tanggalPinjam, tanggalKembali, statusKembali))
@@ -464,24 +464,34 @@ class Transaksi:
 
 		return txt
 def main():
-	while True:
-		print("===== Menu Utama =====")
-		print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman")
-		pilihMenuUtama = int(input("Pilihan anda: "))
+	try:
+		while True:
+			print("===== Menu Utama =====")
+			print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman\nInputkan selain angka 1 hingga 4 untuk keluar dari aplikasi")
+			pilihMenuUtama = int(input("Pilihan anda: "))
 
+			clear()
+
+			if(pilihMenuUtama == 1):
+				Buku().executeMenu()
+			elif(pilihMenuUtama == 2):
+				Karyawan().executeMenu()
+			elif(pilihMenuUtama == 3):
+				Anggota().executeMenu()
+			elif(pilihMenuUtama == 4):
+				Transaksi().executeMenu()
+			else:
+				print("Selamat Tinggal")
+				return False
+	except:
 		clear()
+		lanjutMenu = input("Terdapat kesalahan dalam input. Inputkan apa saja untuk melanjutkan: ")
 
-		if(pilihMenuUtama == 1):
-			Buku().executeMenu()
-		elif(pilihMenuUtama == 2):
-			Karyawan().executeMenu()
-		elif(pilihMenuUtama == 3):
-			Anggota().executeMenu()
-		elif(pilihMenuUtama == 4):
-			Transaksi().executeMenu()
+		if(lanjutMenu):
+			main()
 		else:
-			print("Selamat Tinggal")
-			return False
+			exit()
+
 
 if __name__ == "__main__":
 	clear()
