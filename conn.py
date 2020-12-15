@@ -7,7 +7,7 @@ try:
 		password = "",
 		database = "pythonpbo"
 	)
-	
+
 	mycursor = mydb.cursor()
 except:
 	print("No database server detected. Please ensure you have your database server running!")
