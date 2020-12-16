@@ -69,7 +69,6 @@ class QueryManagement:
 		result = conn.mycursor.fetchone()
 
 		column = ['Judul Buku', 'Nama', 'Denda (Rp)', 'Petugas']
-
 		dataList = [result[1], result[2], self.countDenda(str(result[4]), str(result[5])), namaPetugas]
 		
 		table = PrettyTable(column)		
@@ -145,7 +144,6 @@ while True:
 		password = input("Masukkan password: ")
 
 		passwordHashed = hashlib.md5(password.encode('utf-8')).hexdigest()
-
 		session = Akun.login(username, passwordHashed)
 
 		if(session):
@@ -154,10 +152,11 @@ while True:
 
 			clear()
 		else:
+			clear()
 			print("Username atau password salah")
 	else:
 		print("===== Menu Utama =====")
-		print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman\nInputkan selain angka 1 hingga 4 untuk keluar dari aplikasi")
+		print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman\n5. Logout\nInputkan selain angka 1 hingga 5 untuk keluar dari aplikasi")
 		pilihMenuUtama = int(input("Pilihan anda: "))
 
 		clear()
@@ -438,6 +437,10 @@ while True:
 					print("Data transaksi tidak ditemukan. Silahkan untuk menginputkan beberapa data transaksi terlebih dahulu.")
 			else:
 				print("Pilihan tidak valid.")
+		elif(pilihMenuUtama == 5):
+			loginSession = []
+			clear()
+			print("Berhasil logout!")
 		else:
 			print("Selamat Tinggal")
 			exit()
