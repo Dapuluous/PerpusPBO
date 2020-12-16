@@ -1,7 +1,3 @@
-# PerpusPBO
-This application is made to fulfill a pass-requirement on "Pemrograman Berbasis Obyek" subject.
-Basically, this is a simple application for library management stuff written using Python. As for now, the application is still work in progress which means you will encounter some unexpected bugs so be sure to stay tuned!
-
 # Requirements
 - Python 3.7.5 or newer
 - [prettytable 2.0.0](https://pypi.org/project/prettytable/)

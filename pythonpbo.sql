@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2020 at 08:18 AM
+-- Generation Time: Dec 16, 2020 at 04:13 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.3.5
 
@@ -38,6 +38,13 @@ CREATE TABLE `tb_anggota` (
   `statusAnggota` enum('1','0') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_anggota`
+--
+
+INSERT INTO `tb_anggota` (`idAnggota`, `namaAnggota`, `jenisKelamin`, `umur`, `alamat`, `tanggalDaftar`, `statusAnggota`) VALUES
+(3, 'Risa', 'P', '25', 'Bondowoso', '2020-12-15', '1');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +58,18 @@ CREATE TABLE `tb_buku` (
   `penerbit` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_buku`
+--
+
+INSERT INTO `tb_buku` (`idBuku`, `judulBuku`, `pengarang`, `penerbit`) VALUES
+(1, 'Astropology', 'Mona', 'Mihoyo'),
+(3, 'How to Get Mora', 'Mona', 'Mihoyo'),
+(4, 'Test Buku', 'Dapu', 'Gramedia'),
+(5, 'Demolition of CS:GO', 'Gabe Newell', 'Steam Inc.'),
+(6, 'BN Test Guide (100% Working)', 'mappersguild', 'ppy.sh'),
+(20, 'Cara Mencari Jodoh', 'Dapu', 'Fasilkom Inc.');
+
 -- --------------------------------------------------------
 
 --
@@ -59,12 +78,23 @@ CREATE TABLE `tb_buku` (
 
 CREATE TABLE `tb_karyawan` (
   `idKaryawan` int(11) NOT NULL,
+  `username` varchar(60) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `namaKaryawan` varchar(100) NOT NULL,
-  `jenisKelamin` enum('l','p') NOT NULL,
+  `jenisKelamin` enum('L','P') NOT NULL,
   `umur` int(3) NOT NULL,
   `alamat` text NOT NULL,
-  `tanggalBergabung` date NOT NULL
+  `tanggalBergabung` date NOT NULL,
+  `level` enum('1','2') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_karyawan`
+--
+
+INSERT INTO `tb_karyawan` (`idKaryawan`, `username`, `password`, `namaKaryawan`, `jenisKelamin`, `umur`, `alamat`, `tanggalBergabung`, `level`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Root', 'L', 5, 'Jember', '2020-11-01', '1'),
+(5, 'dapuluous', 'c9955036dec2450a91c32186a2a852be', 'Dhaffa', 'L', 10, 'Bondowoso', '2020-12-09', '2');
 
 -- --------------------------------------------------------
 
@@ -81,6 +111,15 @@ CREATE TABLE `tb_transaksi` (
   `tanggalKembali` date NOT NULL,
   `statusKembali` enum('1','0') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_transaksi`
+--
+
+INSERT INTO `tb_transaksi` (`idTransaksi`, `idBuku`, `idAnggota`, `idKaryawan`, `tanggalPinjam`, `tanggalKembali`, `statusKembali`) VALUES
+(3, 1, 3, 1, '2020-12-15', '2020-12-18', '1'),
+(4, 3, 3, 1, '2020-12-15', '2020-12-18', '1'),
+(5, 3, 3, 1, '2020-12-10', '2020-12-19', '1');
 
 --
 -- Indexes for dumped tables
@@ -118,25 +157,25 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT for table `tb_anggota`
 --
 ALTER TABLE `tb_anggota`
-  MODIFY `idAnggota` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAnggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_buku`
 --
 ALTER TABLE `tb_buku`
-  MODIFY `idBuku` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idBuku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tb_karyawan`
 --
 ALTER TABLE `tb_karyawan`
-  MODIFY `idKaryawan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idKaryawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `idTransaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTransaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
