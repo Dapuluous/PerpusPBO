@@ -118,8 +118,7 @@ class Transaksi(QueryManagement):
 		self.val = (idInput,)
 
 	def printNota(self, idInput):
-		self.sql = "SELECT d.idTransaksi, a.judulBuku, b.namaAnggota, c.namaKaryawan, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM tb_transaksi d INNER JOIN tb_buku a using(idBuku)  INNER JOIN tb_anggota b using(idAnggota) INNER JOIN tb_karyawan c using(idKaryawan) where idTransaksi = %s"
-		self.val = (idInput,)
+		self.fetchSingleTransaksi(idInput)
 
 		result = self.executeFetchSingle()
 
