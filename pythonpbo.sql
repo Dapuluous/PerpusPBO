@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2020 at 04:13 AM
+-- Generation Time: Dec 17, 2020 at 11:45 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.3.5
 
@@ -55,20 +55,22 @@ CREATE TABLE `tb_buku` (
   `idBuku` int(11) NOT NULL,
   `judulBuku` varchar(50) NOT NULL,
   `pengarang` varchar(50) NOT NULL,
-  `penerbit` varchar(50) NOT NULL
+  `penerbit` varchar(50) NOT NULL,
+  `tahunTerbit` varchar(4) NOT NULL,
+  `jumlahHalaman` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_buku`
 --
 
-INSERT INTO `tb_buku` (`idBuku`, `judulBuku`, `pengarang`, `penerbit`) VALUES
-(1, 'Astropology', 'Mona', 'Mihoyo'),
-(3, 'How to Get Mora', 'Mona', 'Mihoyo'),
-(4, 'Test Buku', 'Dapu', 'Gramedia'),
-(5, 'Demolition of CS:GO', 'Gabe Newell', 'Steam Inc.'),
-(6, 'BN Test Guide (100% Working)', 'mappersguild', 'ppy.sh'),
-(20, 'Cara Mencari Jodoh', 'Dapu', 'Fasilkom Inc.');
+INSERT INTO `tb_buku` (`idBuku`, `judulBuku`, `pengarang`, `penerbit`, `tahunTerbit`, `jumlahHalaman`) VALUES
+(1, 'Astropology', 'Mona', 'Mihoyo', '2000', '255'),
+(3, 'How to Get Mora', 'Mona', 'Mihoyo', '2010', '45'),
+(4, 'Test Buku', 'Dapu', 'Gramedia', '2020', '75'),
+(5, 'Demolition of CS:GO', 'Gabe Newell', 'Steam Inc.', '1992', '100'),
+(6, 'BN Test Guide (100% Working)', 'mappersguild', 'ppy.sh', '2010', '90'),
+(20, 'Cara Mencari Jodoh', 'Dapu', 'Fasilkom Inc.', '2001', '20');
 
 -- --------------------------------------------------------
 
@@ -93,8 +95,8 @@ CREATE TABLE `tb_karyawan` (
 --
 
 INSERT INTO `tb_karyawan` (`idKaryawan`, `username`, `password`, `namaKaryawan`, `jenisKelamin`, `umur`, `alamat`, `tanggalBergabung`, `level`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Root', 'L', 5, 'Jember', '2020-11-01', '1'),
-(5, 'dapuluous', 'c9955036dec2450a91c32186a2a852be', 'Dhaffa', 'L', 10, 'Bondowoso', '2020-12-09', '2');
+(1, 'admin', '202cb962ac59075b964b07152d234b70', 'Root', 'L', 5, 'Jember', '2020-11-01', '1'),
+(6, 'dapuluous', '202cb962ac59075b964b07152d234b70', 'Dhaffa Mahendra', 'P', 20, 'Jember', '2020-09-02', '2');
 
 -- --------------------------------------------------------
 
@@ -169,7 +171,7 @@ ALTER TABLE `tb_buku`
 -- AUTO_INCREMENT for table `tb_karyawan`
 --
 ALTER TABLE `tb_karyawan`
-  MODIFY `idKaryawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idKaryawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
