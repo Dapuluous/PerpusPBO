@@ -42,11 +42,19 @@ class App:
 		if(pilihMenuUtama == 1):
 			bukuMenu()
 		elif(pilihMenuUtama == 2):
-			karyawanMenu()
+			if(self.__loginSession[2] == "1"):
+				karyawanMenu()
+			else:
+				print("Anda tidak punya hak untuk mengakses menu ini.")
 		elif(pilihMenuUtama == 3):
 			anggotaMenu()
 		elif(pilihMenuUtama == 4):
 			transaksiMenu(self.__loginSession[0], self.__loginSession[1])
+		elif(pilihMenuUtama == 5):
+			self.__loginSession = []
+			
+			utility.clear()
+			print("Berhasil logout.")
 
 	def run(self):
 		while True:
