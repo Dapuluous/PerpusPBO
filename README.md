@@ -1,13 +1,15 @@
 # Requirements
 - Python 3.7.5 or newer
 - [prettytable 2.0.0](https://pypi.org/project/prettytable/)
+```pip install prettytable```
 - [MySQL Connector 8.0.22](https://dev.mysql.com/downloads/connector/python/)
+```pip install mysql-connector-python```
 - [XAMPP 7.3.5 or newer (For MySQL database)](https://www.apachefriends.org/download.html)
 
 # How to Run
 - Make sure all requirements above were installed in your device.
 - Open XAMPP then start `Apache` & `MySQL`
-- Open `conn.py` and edit the code according to your database credential.
+- Edit `dbManager.py` according to your database credential. This file can be found in `app/config/dbManager.py`
 ```py
 import mysql.connector
 
