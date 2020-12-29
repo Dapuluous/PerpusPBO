@@ -3,35 +3,40 @@ from datetime import datetime, timedelta
 import datetime
 
 class Transaksi(QueryManagement):
+	__tableName = "tb_transaksi"
+	__tableName2 = "tb_buku"
+	__tableName3 = "tb_anggota"
+	__tableName4 = "tb_karyawan"
+
 	def __init__(self, sql=None, val=None):
 		QueryManagement.__init__(self, sql, val)
 
 	def insertTransaksi(self, value):
-		self.sql = "INSERT INTO tb_transaksi (idBuku, idAnggota, idKaryawan, tanggalPinjam, tanggalKembali, statusKembali) VALUES (%s, %s, %s, %s, %s, %s)"
+		self.sql = f"INSERT INTO {self.__tableName} (idBuku, idAnggota, idKaryawan, tanggalPinjam, tanggalKembali, statusKembali) VALUES (%s, %s, %s, %s, %s, %s)"
 		self.val = value
 
 		self.executeInsert()
 
 	def fetchAllTransaksi(self):
-		self.sql = "SELECT d.idTransaksi, a.judulBuku, b.namaAnggota, c.namaKaryawan, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM tb_transaksi d INNER JOIN tb_buku a using(idBuku) INNER JOIN tb_anggota b using(idAnggota) INNER JOIN tb_karyawan c using(idKaryawan)"
+		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaAnggota, c.namaKaryawan, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName3} b using(idAnggota) INNER JOIN {self.__tableName4} c using(idKaryawan)"
 		self.val = ['ID', 'Judul Buku', 'Nama Anggota', 'Petugas Yang Melayani', 'Tanggal Pinjam', 'Tanggal Kembali', 'Status Kembali']
 
 		return self.executeFetchAll()
 
 	def fetchSingleTransaksi(self, idInput):
-		self.sql = "SELECT d.idTransaksi, a.judulBuku, b.namaKaryawan, c.namaAnggota, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM tb_transaksi d INNER JOIN tb_buku a using(idBuku) INNER JOIN tb_karyawan b using(idKaryawan) INNER JOIN tb_Anggota c using(idAnggota) where idTransaksi = %s"
+		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaKaryawan, c.namaAnggota, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName4} b using(idKaryawan) INNER JOIN {self.__tableName3} c using(idAnggota) where idTransaksi = %s"
 		self.val = (idInput,)
 
 		return self.executeFetchSingle()
 
 	def updateTransaksi(self, value):
-		self.sql = "UPDATE tb_transaksi SET statusKembali = %s where idTransaksi = %s"
+		self.sql = f"UPDATE {self.__tableName} SET statusKembali = %s where idTransaksi = %s"
 		self.val = value
 
 		self.executeCommit("Update")
 
 	def deleteTransaksi(self, idInput):
-		self.sql = "DELETE FROM tb_transaksi WHERE idTransaksi = %s"
+		self.sql = f"DELETE FROM {self.__tableName} WHERE idTransaksi = %s"
 		self.val = (idInput,)
 
 		self.executeCommit("Delete")
