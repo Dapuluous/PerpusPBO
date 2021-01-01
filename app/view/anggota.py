@@ -59,8 +59,13 @@ def anggotaMenu():
 			anggotaExists = Anggota().fetchSingleAnggota(idInput)
 			
 			if(anggotaExists):
-				clear()
-				Anggota().deleteAnggota(idInput)
+				confirmationMsg = input(f"Apakah anda yakin ingin menghapus anggota dengan ID {idInput}? (Y/N): ").lower()
+
+				if(confirmationMsg == "y"):
+					clear()
+					Anggota().deleteAnggota(idInput)
+				else:
+					clear()
 			else:
 				clear()
 				print(f"Tidak ditemukan data anggota dengan ID {idInput}")

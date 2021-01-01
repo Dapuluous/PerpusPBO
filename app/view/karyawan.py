@@ -61,12 +61,17 @@ def karyawanMenu():
 		karyawanNotEmpty = Karyawan().fetchAllKaryawan()
 
 		if(karyawanNotEmpty):
-			idInput = int(input("Masukkan id buku yang ingin dihapus: "))
+			idInput = int(input("Masukkan id karyawan yang ingin dihapus: "))
 			karyawanExists = Karyawan().fetchSingleKaryawan(idInput)
 			
 			if(karyawanExists):
-				clear()
-				Karyawan().deleteKaryawan(idInput)
+				confirmationMsg = input(f"Apakah anda yakin ingin menghapus karyawan dengan ID {idInput}? (Y/N): ").lower()
+
+				if(confirmationMsg == "y"):
+					clear()
+					Karyawan().deleteKaryawan(idInput)
+				else:
+					clear()
 			else:
 				clear()
 				print(f"Tidak ditemukan data karyawan dengan ID {idInput}")

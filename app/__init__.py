@@ -34,34 +34,57 @@ class App:
 
 	def mainMenu(self):
 		print("===== Menu Utama =====")
-		print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman\n5. Logout\nInputkan selain angka 1 hingga 5 untuk keluar dari aplikasi")
+		print("1. Manajemen Buku\n2. Manajemen Karyawan\n3. Manajemen Anggota Perpustakaan\n4. Manajemen Peminjaman\n5. Logout\nInputkan selain 1 hingga 5 untuk keluar dari aplikasi")
 		pilihMenuUtama = int(input("Pilihan anda: "))
 		
 		utility.clear()
 
 		if(pilihMenuUtama == 1):
-			bukuMenu()
+			try:
+				bukuMenu()
+			except:
+				utility.clear()
+				App().run()
 		elif(pilihMenuUtama == 2):
-			if(self.__loginSession[2] == "1"):
-				karyawanMenu()
-			else:
-				print("Anda tidak punya hak untuk mengakses menu ini.")
+			try:
+				if(self.__loginSession[2] == "1"):
+					karyawanMenu()
+				else:
+					print("Anda tidak punya hak untuk mengakses menu ini.")
+			except:
+				utility.clear()
+				App().run()
 		elif(pilihMenuUtama == 3):
-			anggotaMenu()
+			try:
+				anggotaMenu()
+			except:
+				utility.clear()
+				App().run()
 		elif(pilihMenuUtama == 4):
-			transaksiMenu(self.__loginSession[0], self.__loginSession[1])
+			try:
+				transaksiMenu(self.__loginSession[0], self.__loginSession[1])
+			except:
+				utility.clear()
+				App().run()
 		elif(pilihMenuUtama == 5):
 			self.__loginSession = []
-			
+		
 			utility.clear()
 			print("Berhasil logout.")
+		else:
+			pass
 
 	def run(self):
 		while True:
-			if(self.__loginSession):
-				self.mainMenu()
-			else:
-				self.setCredential()
+			try:
+				if(self.__loginSession):
+					self.mainMenu()
+				else:
+					self.setCredential()
+			except:
+				utility.clear()
+				print("Selamat tinggal!")
+				exit()
 
 
 		

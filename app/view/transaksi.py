@@ -62,9 +62,10 @@ def transaksiMenu(idUser, namaUser):
 				data = (statusKembali, idInput)
 				
 				clear()
-				Transaksi().updateTransaksi(data)
 				Transaksi().printNota(idInput, namaUser)
+				Transaksi().updateTransaksi(data)
 			else:
+				clear()
 				print(f"Tidak ditemukan data transaksi dengan ID {idInput}")
 		else:
 			pass
@@ -76,8 +77,13 @@ def transaksiMenu(idUser, namaUser):
 			transaksiExists = Transaksi().fetchSingleTransaksi(idInput)
 			
 			if(transaksiExists):
-				clear()
-				Transaksi().deleteTransaksi(idInput)
+				confirmationMsg = input(f"Apakah anda yakin ingin menghapus transaksi dengan ID {idInput}? (Y/N): ").lower()
+
+				if(confirmationMsg == "y"):
+					clear()
+					Transaksi().deleteTransaksi(idInput)
+				else:
+					clear()
 			else:
 				clear()
 				print(f"Tidak ditemukan data transaksi dengan ID {idInput}")

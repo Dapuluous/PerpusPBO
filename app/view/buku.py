@@ -57,8 +57,13 @@ def bukuMenu():
 			bukuExists = Buku().fetchSingleBuku(idInput)
 
 			if(bukuExists):
-				clear()
-				Buku().deleteBuku(idInput)
+				confirmationMsg = input(f"Apakah anda yakin ingin menghapus buku dengan ID {idInput}? (Y/N): ").lower()
+
+				if(confirmationMsg == "y"):
+					clear()
+					Buku().deleteBuku(idInput)
+				else:
+					clear()
 			else:
 				clear()
 				print(f"Data buku dengan ID {idInput} tidak ditemukan.")

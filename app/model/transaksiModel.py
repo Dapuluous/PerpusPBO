@@ -51,22 +51,26 @@ class Transaksi(QueryManagement):
 		table = PrettyTable(column)		
 		table.add_row(dataList)
 
-		print("+------------------ Nota -------------------+")
 		print(table)
 		print("Terima kasih telah berkunjung ke perpustakaan!")
-		print("+------------------ Nota -------------------+")
 
 	def countDenda(self, tanggalPinjamInit, tanggalKembaliInit):
+		tanggalSekarangInit = str(datetime.datetime.today().strftime('%Y-%m-%d'))
+
 		year, month, day = map(int, tanggalPinjamInit.split('-'))
 		year2, month2, day2 = map(int, tanggalKembaliInit.split('-'))
+		year3, month3, day3 = map(int, tanggalSekarangInit.split('-'))
 
-		self.tanggalPinjam = datetime.date(year, month, day)
-		self.tanggalKembali = datetime.date(year2, month2, day2)
+		tanggalPinjam = datetime.date(year, month, day)
+		tanggalKembali = datetime.date(year2, month2, day2)
+		tanggalSekarang = datetime.date(year3, month3, day3)
 
-		jumlahHariTerlambat = self.tanggalKembali - self.tanggalPinjam
+		jumlahHariTerlambat = tanggalKembali - tanggalPinjam
+		
+		patokanDenda = tanggalSekarang - tanggalKembali
 
-		if(jumlahHariTerlambat.days > 3):
-			denda = (jumlahHariTerlambat.days - 3) * 1000	
+		if(jumlahHariTerlambat.days >= 3):
+			denda = patokanDenda.days * 3000	
 		else:
 			denda = 0
 
