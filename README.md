@@ -7,7 +7,7 @@
 - [XAMPP 7.3.5 or newer (For MySQL database)](https://www.apachefriends.org/download.html)
 
 # How to Run
-- Make sure all requirements above were installed in your device.
+- Make sure all requirements above were installed in your device. or just install `XAMPP` then open terminal/cmd then type `pip install -r requirement.txt`
 - Open XAMPP then start `Apache` & `MySQL`
 - Edit `dbManager.py` according to your database credential. This file can be found in `app/config/dbManager.py`
 ```py
