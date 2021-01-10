@@ -1,5 +1,7 @@
 # Requirements
 - Python 3.7.5 or newer
+- [Pyglet 1.15.4](https://pypi.org/project/pyglet/)
+```pip install pyglet```
 - [prettytable 2.0.0](https://pypi.org/project/prettytable/)
 ```pip install prettytable```
 - [MySQL Connector 8.0.22](https://dev.mysql.com/downloads/connector/python/)
