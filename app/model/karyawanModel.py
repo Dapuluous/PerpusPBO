@@ -19,19 +19,20 @@ class Karyawan(QueryManagement):
 		return self.executeFetchAll()
 
 	def fetchSingleKaryawan(self, idInput):
-		self.sql = f"SELECT * FROM {self.__tableName} WHERE idKaryawan = %s"
+		self.sql = f"SELECT idKaryawan, username, namaKaryawan, jenisKelamin, umur, alamat, tanggalBergabung, level FROM {self.__tableName} WHERE idKaryawan = %s"
 		self.val = (idInput,)
+		self.val2 = ['ID', 'Username', 'Nama User', 'Jenis Kelamin', 'Umur', 'Alamat', 'Tanggal Bergabung', 'Level']
 
-		return self.executeFetchSingle()
+		return self.executeFetchSinglePrint()
 
 	def updateKaryawan(self, value):
 		self.sql = f"UPDATE {self.__tableName} SET username = %s, password = %s, namaKaryawan = %s, jenisKelamin = %s, umur = %s, alamat = %s, tanggalBergabung = %s WHERE idKaryawan = %s"
 		self.val = value
 
-		self.executeCommit("Update")
+		self.executeCommit()
 
 	def deleteKaryawan(self, idInput):
 		self.sql = f"DELETE FROM {self.__tableName} WHERE idKaryawan = %s"
 		self.val = (idInput,)
 
-		self.executeCommit("Delete")
+		self.executeCommit()

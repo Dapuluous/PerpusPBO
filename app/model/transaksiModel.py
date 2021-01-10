@@ -18,7 +18,7 @@ class Transaksi(QueryManagement):
 		self.executeInsert()
 
 	def fetchAllTransaksi(self):
-		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaAnggota, c.namaKaryawan, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName3} b using(idAnggota) INNER JOIN {self.__tableName4} c using(idKaryawan)"
+		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaAnggota, c.namaKaryawan, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName3} b using(idAnggota) INNER JOIN {self.__tableName4} c using(idKaryawan) ORDER BY d.idTransaksi"
 		self.val = ['ID', 'Judul Buku', 'Nama Anggota', 'Petugas Yang Melayani', 'Tanggal Pinjam', 'Tanggal Kembali', 'Status Kembali']
 
 		return self.executeFetchAll()
@@ -26,33 +26,40 @@ class Transaksi(QueryManagement):
 	def fetchSingleTransaksi(self, idInput):
 		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaKaryawan, c.namaAnggota, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName4} b using(idKaryawan) INNER JOIN {self.__tableName3} c using(idAnggota) where idTransaksi = %s"
 		self.val = (idInput,)
+		self.val2 = ['ID', 'Judul Buku', 'Petugas Yang Melayani', 'Nama Anggota', 'Tanggal Pinjam', 'Tanggal Kembali', 'Status Kembali']
 
-		return self.executeFetchSingle()
+		return self.executeFetchSinglePrint()
 
 	def updateTransaksi(self, value):
 		self.sql = f"UPDATE {self.__tableName} SET statusKembali = %s where idTransaksi = %s"
 		self.val = value
 
-		self.executeCommit("Update")
+		self.executeCommit()
 
 	def deleteTransaksi(self, idInput):
 		self.sql = f"DELETE FROM {self.__tableName} WHERE idTransaksi = %s"
 		self.val = (idInput,)
 
-		self.executeCommit("Delete")
+		self.executeCommit()
 
 	def printNota(self, idInput, namaUser):
-		self.fetchSingleTransaksi(idInput)
+		self.sql = f"SELECT d.idTransaksi, a.judulBuku, b.namaKaryawan, c.namaAnggota, d.tanggalPinjam, d.tanggalKembali, d.statusKembali FROM {self.__tableName} d INNER JOIN {self.__tableName2} a using(idBuku) INNER JOIN {self.__tableName4} b using(idKaryawan) INNER JOIN {self.__tableName3} c using(idAnggota) where idTransaksi = %s"
+		self.val = (idInput,)
+
 		result = self.executeFetchSingle()
 
-		column = ['Judul Buku', 'Nama', 'Denda (Rp)', 'Petugas']
-		dataList = [result[1], result[2], self.countDenda(str(result[4]), str(result[5])), namaUser]
+		column = ['Judul Buku', 'Nama Anggota', 'Denda (Rp)', 'Petugas']
+		dataList = [result[1], result[3], self.countDenda(str(result[4]), str(result[5])), namaUser]
 
 		table = PrettyTable(column)		
 		table.add_row(dataList)
 
+		print("====================================================")
+		print("")
 		print(table)
 		print("Terima kasih telah berkunjung ke perpustakaan!")
+		print("")
+		print("====================================================")
 
 	def countDenda(self, tanggalPinjamInit, tanggalKembaliInit):
 		tanggalSekarangInit = str(datetime.datetime.today().strftime('%Y-%m-%d'))
@@ -69,7 +76,7 @@ class Transaksi(QueryManagement):
 		
 		patokanDenda = tanggalSekarang - tanggalKembali
 
-		if(jumlahHariTerlambat.days >= 3):
+		if(jumlahHariTerlambat.days > 3):
 			denda = patokanDenda.days * 3000	
 		else:
 			denda = 0

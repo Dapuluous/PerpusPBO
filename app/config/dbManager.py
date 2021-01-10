@@ -17,16 +17,15 @@ class Database:
 			exit()
 
 class QueryManagement(Database):
-	def __init__(self, sql=None, val=None):
+	def __init__(self, sql=None, val=None, val2=None):
 		Database.__init__(self)
 		self.sql = sql
 		self.val = val
+		self.val2 = val2
 
 	def executeInsert(self):
 		self.mycursor.executemany(self.sql, self.val)
 		self.mydb.commit()
-		
-		print(self.mycursor.rowcount, "data berhasil disimpan.")
 
 	def executeFetchAll(self):
 		self.mycursor.execute(self.sql)
@@ -52,15 +51,24 @@ class QueryManagement(Database):
 		self.mycursor.execute(self.sql, self.val)
 		return self.mycursor.fetchone()
 
-	def executeCommit(self, commitType):
+	def executeFetchSinglePrint(self):
+		self.mycursor.execute(self.sql, self.val)
+		result = self.mycursor.fetchone()
+
+		dataList = []
+
+		if(len(result) == 0):
+			print("Tidak ada data ditemukan.")
+		else:
+			table = PrettyTable(self.val2)
+			for x in range (0, len(result)):
+				dataList.append(result[x])
+			
+			table.add_row(dataList)
+			print(table)
+
+		return result
+
+	def executeCommit(self):
 		self.mycursor.execute(self.sql, self.val)
 		self.mydb.commit()
-
-		if(commitType == "Update"):
-			msg = "diubah."
-		elif(commitType == "Delete"):
-			msg = "dihapus."
-		else:
-			msg = "diapakan ya hmmm :v?"
-
-		print(f"data berhasil {msg}")

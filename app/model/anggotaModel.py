@@ -21,17 +21,18 @@ class Anggota(QueryManagement):
 	def fetchSingleAnggota(self, idInput):
 		self.sql = f"SELECT * FROM {self.__tableName} where idAnggota = %s"
 		self.val = (idInput,)
+		self.val2 = ['ID', 'Nama', 'Jenis Kelamin', 'Umur', 'Alamat', 'Tanggal Daftar', 'Status']
 
-		return self.executeFetchSingle()
+		return self.executeFetchSinglePrint()
 
 	def updateAnggota(self, value):
 		self.sql = f"UPDATE {self.__tableName} SET namaAnggota = %s, jenisKelamin = %s, umur = %s, alamat = %s, statusAnggota = %s where idAnggota = %s"
 		self.val = value
 
-		self.executeCommit("Update")
+		self.executeCommit()
 
 	def deleteAnggota(self, idInput):
 		self.sql = f"DELETE FROM {self.__tableName} WHERE idAnggota = %s"
 		self.val = (idInput,)
 
-		self.executeCommit("Delete")
+		self.executeCommit()

@@ -1,9 +1,11 @@
 from app.model.bukuModel import Buku
 from app.utility import *
+import pyfiglet
 
 def bukuMenu():
-	print("Silahkan pilih menu: ")
-	print("1. Tambah Buku\n2. Tampilkan Buku\n3. Ubah Buku\n4. Hapus Buku")
+	print(pyfiglet.figlet_format("E-LIB") + "===========================")
+	print("1. Tambah Buku\n2. Tampilkan Buku\n3. Ubah Buku\n4. Hapus Buku\n5. Kembali")
+	print("===========================")
 	pilihSubMenu = int(input("Pilih Menu: "))
 
 	clear()
@@ -11,6 +13,8 @@ def bukuMenu():
 	if(pilihSubMenu == 1):
 		data = []
 		banyakData = int(input("Masukkan banyak buku yang akan diinput: "))
+
+		clear()
 
 		for x in range(0, banyakData):
 			print(f"===== Data Buku Ke-{x+1} =====")
@@ -23,14 +27,20 @@ def bukuMenu():
 			data.append((judulBuku, pengarang, penerbit, tahunTerbit, jumlahHalaman))
 
 		clear()
+		
 		Buku().insertBuku(data)
+		print("Berhasil menyimpan data")
+		input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 2):
 		Buku().fetchAllBuku()
+		input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 3):
 		bukuNotEmpty = Buku().fetchAllBuku()
 
 		if(bukuNotEmpty):
 			idInput = int(input("Masukkan id buku yang ingin diubah: "))
+
+			clear()
 			bukuExists = Buku().fetchSingleBuku(idInput)
 
 			if(bukuExists):
@@ -44,16 +54,21 @@ def bukuMenu():
 
 				clear()
 				Buku().updateBuku(data)
+				print("Berhasil mengubah data")
+				input("Enter untuk melanjukan...")
 			else:
 				clear()
 				print(f"Data buku dengan ID {idInput} tidak ditemukan.")
+				input("Enter untuk melanjukan...")
 		else:
-			pass
+			input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 4):
 		bukuNotEmpty = Buku().fetchAllBuku()
 
 		if(bukuNotEmpty):
 			idInput = int(input("Masukkan id buku yang ingin dihapus: "))
+
+			clear()
 			bukuExists = Buku().fetchSingleBuku(idInput)
 
 			if(bukuExists):
@@ -62,12 +77,15 @@ def bukuMenu():
 				if(confirmationMsg == "y"):
 					clear()
 					Buku().deleteBuku(idInput)
+					print("Berhasil menghapus data")
+					input("Enter untuk melanjukan...")
 				else:
 					clear()
 			else:
 				clear()
 				print(f"Data buku dengan ID {idInput} tidak ditemukan.")
+				input("Enter untuk melanjukan...")
 		else:
-			pass
+			input("Enter untuk melanjukan...")
 	else:
 		pass

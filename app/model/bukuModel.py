@@ -21,17 +21,18 @@ class Buku(QueryManagement):
 	def fetchSingleBuku(self, idInput):
 		self.sql = f"SELECT * FROM {self.__tableName} WHERE idBuku = %s"
 		self.val = (idInput,)
+		self.val2 = ['ID', 'Judul Buku', 'Pengarang', 'Penerbit', 'Tahun Terbit', 'Jumlah Halaman']
 
-		return self.executeFetchSingle()
+		return self.executeFetchSinglePrint()
 
 	def updateBuku(self, value):
 		self.sql = f"UPDATE {self.__tableName} SET judulBuku = %s, pengarang = %s, penerbit = %s, tahunTerbit = %s, jumlahHalaman = %s where idBuku = %s"
 		self.val = value
 
-		self.executeCommit("Update")
+		self.executeCommit()
 
 	def deleteBuku(self, idInput):
 		self.sql = f"DELETE FROM {self.__tableName} WHERE idBuku = %s"
 		self.val = (idInput,)
 
-		self.executeCommit("Delete")
+		self.executeCommit()

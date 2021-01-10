@@ -1,11 +1,13 @@
 from app.model.anggotaModel import Anggota
 from app.utility import *
 from datetime import datetime, timedelta
+import pyfiglet
 
 def anggotaMenu():
-	print("===== Sub Menu =====")
-	print("1. Tambah Anggota\n2. Tampilkan Anggota\n3. Ubah Data Anggota\n4. Hapus Data Anggota")
-	pilihSubMenu = int(input("Pilihan anda: "))
+	print(pyfiglet.figlet_format("E-LIB") + "===========================")
+	print("1. Tambah Anggota\n2. Tampilkan Anggota\n3. Ubah Data Anggota\n4. Hapus Data Anggota\n5. Kembali")
+	print("===========================")
+	pilihSubMenu = int(input("Pilihan Menu: "))
 
 	clear()
 
@@ -26,13 +28,18 @@ def anggotaMenu():
 
 		clear()
 		Anggota().insertAnggota(data)
+		print("Berhasil menyimpan data")
+		input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 2):
 		Anggota().fetchAllAnggota()
+		input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 3):
 		anggotaNotEmpty = Anggota().fetchAllAnggota()
 
 		if(anggotaNotEmpty):
 			idInput = int(input("Masukkan id anggota yang ingin diubah: "))
+
+			clear()
 			anggotaExists = Anggota().fetchSingleAnggota(idInput)
 			
 			if(anggotaExists):
@@ -46,16 +53,21 @@ def anggotaMenu():
 
 				clear()
 				Anggota().updateAnggota(data)
+				print("Berhasil mengubah data")
+				input("Enter untuk melanjukan...")
 			else:
 				clear()
 				print(f"Tidak ditemukan data anggota dengan ID {idInput}")
+				input("Enter untuk melanjukan...")
 		else:
-			pass
+			input("Enter untuk melanjukan...")
 	elif(pilihSubMenu == 4):
 		anggotaNotEmpty = Anggota().fetchAllAnggota()
 
 		if(anggotaNotEmpty):
 			idInput = int(input("Masukkan id anggota yang ingin dihapus: "))
+
+			clear()
 			anggotaExists = Anggota().fetchSingleAnggota(idInput)
 			
 			if(anggotaExists):
@@ -64,12 +76,15 @@ def anggotaMenu():
 				if(confirmationMsg == "y"):
 					clear()
 					Anggota().deleteAnggota(idInput)
+					print("Berhasil menghapus data")
+					input("Enter untuk melanjukan...")
 				else:
 					clear()
 			else:
 				clear()
 				print(f"Tidak ditemukan data anggota dengan ID {idInput}")
+				input("Enter untuk melanjukan...")
 		else:
-			pass
+			input("Enter untuk melanjukan...")
 	else:
 		pass
